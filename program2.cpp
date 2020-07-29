@@ -25,31 +25,38 @@ I am a programmer
 using namespace std;
 
 int main(){
-	string strinput;
-  string valid_char;
+	string inp,valid_char;
   cout<<"Enter a string : ";
-	getline(cin,strinput);
-  cout<<"\nEnter a valid string : ";
+	getline(cin,inp);
+  cout<<"\nEnter valid characters : ";
 	getline(cin,valid_char);
 	bool valid_char_map[500];
 	int removed_char[500]={0};
 
+	transform(valid_char.begin(), valid_char.end(), valid_char.begin(), ::tolower);
+  
+	for(int i=0; i<valid_char.size();i++)
+		valid_char_map[(int)valid_char[i]]=true;
+	transform(valid_char.begin(), valid_char.end(), valid_char.begin(), ::toupper);
+
 	for(int i=0; i<valid_char.size();i++)
 		valid_char_map[(int)valid_char[i]]=true;
 	string out="";
-	for(int i=0;i<strinput.size();i++){
-		if(!valid_char_map[(int)strinput[i]])
-			removed_char[(int)strinput[i]]++;
+
+	for(int i=0;i<inp.size();i++){
+		if(!valid_char_map[(int)inp[i]])
+			removed_char[(int)inp[i]]++;
 		else
-			out+=strinput[i];
+			out+=inp[i];
 	}
 	cout<<out<<'\n';
 
-	for(int i=0;i<strinput.size();i++){
-		if(removed_char[(int)strinput[i]]){
-			cout<<removed_char[(int)strinput[i]]<<" "<<strinput[i]<<" was removed\n";
-			removed_char[(int)strinput[i]]=0;
+	for(int i=0;i<inp.size();i++){
+		if(removed_char[(int)inp[i]]){
+			cout<<removed_char[(int)inp[i]]<<" "<<inp[i]<<" was removed\n";
+			removed_char[(int)inp[i]]=0;
 		}
 	}
+
 	return 0;
 }
